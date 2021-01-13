@@ -1,0 +1,35 @@
+@(issueList: Seq[Issue], updatePointUrl: Call, form: Form[PointForm.Data])(implicit request: MessagesRequestHeader)
+
+@main("home") {
+    <h1>Home画面</h1>
+
+    @* Global errors are not tied to any particular form field *@
+    @if(form.hasGlobalErrors) {
+        @form.globalErrors.map { error: FormError =>
+            <div>
+                @error.key: @error.message
+            </div>
+        }
+    }
+
+    <hr/>
+    <table>
+        <thead>
+        <tr><th>ISSUE_KEY</th><th>SUMMARY</th><th>POINT</th></tr>
+        </thead>
+        <tbody>
+        @for(issue <- issueList) {
+        <tr><td>@issue.issueKey</td><td>@issue.summary</td><td>@issue.point</td></tr>
+        }
+        </tbody>
+    </table>
+
+    <hr/>
+    <h2>Pointの変更</h2>
+    @helper.form(updatePointUrl) {
+        @helper.CSRF.formField
+        @helper.inputText(form("issueKey"))
+        @helper.inputText(form("point"))
+        <button>Create widget</button>
+    }
+}

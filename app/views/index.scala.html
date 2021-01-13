@@ -1,0 +1,12 @@
+@(initUrl: Call)(implicit request: MessagesRequestHeader)
+
+@main("index") {
+  <h1>ログイン画面（未実装）</h1>
+  <hr/>
+
+  <h2>以下ボタンでBacklogから課題を取得しつつ認証（の予定）</h2>
+  @helper.form(initUrl) {
+    @helper.CSRF.formField
+    <button>Initialize</button>
+  }
+}
